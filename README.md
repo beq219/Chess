@@ -1,2 +1,2 @@
-# PublicProjects
-Here is a portfolio of public projects
+# Chess
+Here is a chess game I made using javascript
