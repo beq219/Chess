@@ -1,0 +1,14 @@
+{
+  "name": "chess-beq219",
+  "version": "1.0.0",
+  "description": "2 player chess game",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ben Quan",
+  "license": "ISC",
+  "dependencies": {
+    "jquery": "^3.4.1"
+  }
+}
