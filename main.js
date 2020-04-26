@@ -77,6 +77,7 @@ function setUp(){
         },
     });
     $(".droppable").droppable({
+        hoverClasss: "ui-state-hover",
         drop: function(event, ui){
             console.log("dragged:"+ui.draggable.attr("src"));
             let imgId = ui.draggable.attr("src").split(/\//).pop();

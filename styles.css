@@ -1,10 +1,15 @@
 table{
     width: 100%;
-    table-layout: fixed
+    table-layout: fixed;
+    /*background-color: #71412C;*/
 }
 td{
-    height: 12vw;
-    /* background-color: aqua; */
+    height: 10vw;
+    width: 10vw;
+    /*background-color: aqua; */
+}
+tr{
+	/*border: 1px solid #71412C;*/
 }
 td img{
     max-width: 100%;
