@@ -68,7 +68,13 @@ class Board{
 	}
 
 	move(oldRow, oldCol, id, newRow, newCol){
+		let oldPiece = this.getPiece(oldRow, oldCol);
+		let newPiece = this.getPiece(newRow, newCol);
+		console.log(oldPiece)
+		console.log(newPiece)
 		board.setImgId(id, newRow, newCol);
+
+		//TODO: don't just replace the old position with blank
 		board.setImgId("Blank.png",oldRow, oldCol);
 	}
 
@@ -295,8 +301,13 @@ function setup(){
             let cellRowIndex = this.closest("tr").rowIndex;
             let drop_piece = board.getPiece(cellRowIndex, cellColIndex);
             console.log("dropped on piece: "+drop_piece.imgId+" on "+drop_piece.location);
-			board.move(draggedPiece.location[0],draggedPiece.location[1],imgId,cellRowIndex,cellColIndex);
-			draggedPiece.location = [cellRowIndex,cellColIndex];
+            console.log(draggedPiece.possibleMoves)
+
+			//TODO: only move piece if the drop_piece is in possible moves 
+			if(draggedPiece.possibleMoves.includes(drop_piece.location)){
+				board.move(draggedPiece.location[0],draggedPiece.location[1],imgId,cellRowIndex,cellColIndex);
+				draggedPiece.location = [cellRowIndex,cellColIndex];
+			}
 		}
 	});
 }
