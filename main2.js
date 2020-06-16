@@ -153,38 +153,70 @@ class Pawn extends Piece{
 
 	getPossibleMoves(x,y){
 		let possibleMoves = []
-		if (this.imgId === "PawnW.png"){
-			let north = board.getPiece(x-1, y); 
-			let northDouble = board.getPiece(x-2, y);
-			let northWest = board.getPiece(x-1,y-1);
-			let northEast = board.getPiece(x-1, y+1);
+		switch (this.imgId){
+			case "PawnW.png":
+				let north = board.getPiece(x-1, y); 
+				let northDouble = board.getPiece(x-2, y);
+				let northWest = board.getPiece(x-1,y-1);
+				let northEast = board.getPiece(x-1, y+1);
 
-			if (this.hasMoved){
-				//check front space
-				if (board.isEmpty(north.location)){
+				if (this.hasMoved){
+					//check front space
+					if (board.isEmpty(north.location)){
+						possibleMoves.push(north.location);
+					}
+					// check if corners have enemies
+					if (!board.isEmpty(northWest.location) && !northWest.imgId.endsWith("W.png")){
+						possibleMoves.push(northWest.location);
+					}
+					if (!board.isEmpty(northEast.location) && !northEast.imgId.endsWith("W.png")){
+						possibleMoves.push(northEast.location);
+					}
+				}else{
 					possibleMoves.push(north.location);
+					possibleMoves.push(northDouble.location);
+					// check if corners have enemies
+					if (!board.isEmpty(northWest.location) && !northWest.imgId.endsWith("W.png")){
+						possibleMoves.push(northWest.location);
+					}
+					if (!board.isEmpty(northEast.location) && !northEast.imgId.endsWith("W.png")){
+						possibleMoves.push(northEast.location);
+					}
 				}
-				// check if corners are empty
-				if (board.isEmpty(northWest.location)){
-					possibleMoves.push(northWest.location);
+				console.log("possible moves: " + possibleMoves);
+				return possibleMoves;
+			case "PawnB.png":
+				let south = board.getPiece(x+1, y); 
+				let southDouble = board.getPiece(x+2, y);
+				let southWest = board.getPiece(x+1,y+1);
+				let southEast = board.getPiece(x+1, y-1);
+
+				if (this.hasMoved){
+					//check front space
+					if (board.isEmpty(south.location)){
+						possibleMoves.push(south.location);
+					}
+					// check if corners have enemies
+					if (!board.isEmpty(southWest.location) && !southWest.imgId.endsWith("B.png")){
+						possibleMoves.push(southWest.location);
+					}
+					if (!board.isEmpty(southEast.location) && !southEast.imgId.endsWith("B.png")){
+						possibleMoves.push(southEast.location);
+					}
+				}else{
+					possibleMoves.push(south.location);
+					possibleMoves.push(southDouble.location);
+					// check if corners have enemies
+					if (!board.isEmpty(southWest.location) && !southWest.imgId.endsWith("B.png")){
+						possibleMoves.push(southWest.location);
+					}
+					if (!board.isEmpty(southEast.location) && !southEast.imgId.endsWith("B.png")){
+						possibleMoves.push(southEast.location);
+					}
 				}
-				if (board.isEmpty(northEast.location)){
-					possibleMoves.push(northEast.location);
-				}
-			}else{
-				possibleMoves.push(north.location);
-				possibleMoves.push(northDouble.location);
-			}
-			console.log("possible moves: " + possibleMoves);
-			return possibleMoves;
-		}else{
-			if (this.hasMoved){
-				return [[x+1, y]];
-			}else{
-				return[[x+1, y],[x+2,y]];
-			}
+				console.log("possible moves: " + possibleMoves);
+				return possibleMoves;
 		}
-		
 	}
 }
 
@@ -307,6 +339,10 @@ function setup(){
 			if(draggedPiece.possibleMoves.includes(drop_piece.location)){
 				board.move(draggedPiece.location[0],draggedPiece.location[1],imgId,cellRowIndex,cellColIndex);
 				draggedPiece.location = [cellRowIndex,cellColIndex];
+
+				if(draggedPiece.imgId === "PawnW.png" || draggedPiece.imgId === "PawnB.png"){
+					draggedPiece.hasMoved = true;
+				}
 			}
 		}
 	});
